@@ -3,8 +3,7 @@ let express = require("express"),
     bodyParser = require("body-parser"),    // for parsing data to and from html pages
     methodOverride = require('method-override'),    // for enabling different http requests for CRUD
     mongoose = require("mongoose");
-    // todo: add db sensor model
-// let Sensor = require("./models/sensor");
+let Sensor = require("./models/sensor");
 
     // todo: work on routes
 let indexRoutes = require("./routes/index"),
@@ -12,7 +11,7 @@ let indexRoutes = require("./routes/index"),
 
     // todo: connect mongodb to cloud
     // right now, env is set to mongodb://localhost/honeywell
-mongoose.connect("mongodb://localhost/honeywell", {
+mongoose.connect(String(process.env.HONEYWELL_MONGODB_URL), {
     useNewUrlParser: true,
     useCreateIndex: true
 }).then(() => {
