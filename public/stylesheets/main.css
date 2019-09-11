@@ -1,0 +1,40 @@
+#main-banner {
+    background-color: #EE3124;
+    color: white;
+    font-weight: 500;
+}
+.dropdown-menu .dropdown-item {
+    color: #191A00;
+}
+.shift-down {
+    margin-top: 2.5%;
+}
+.jumbotron {
+    background-color: #00639D;
+    color: white;
+}
+.btn-honeywell-green {
+    background-color: #84BD00;
+}
+.honeywell-white {
+    color: white;
+}
+#main-img {
+    width: 100%;
+}
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2em;
+}
+
+#heading {
+    font-weight: bold;
+    font-size: 6.5em;
+}
+#subheading {
+    font-style: italic;
+    font-size: 1.4em;
+}
+#sub-text {
+    font-size: 1.1em;
+}
