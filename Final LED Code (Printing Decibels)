@@ -1,10 +1,10 @@
 #include <EEPROM.h>
 
-int sensorVal;
+float sensorVal;
 int outputVal;
 int ledred = 9;
 int ledgreen = 8;
-int threshold = 50;
+int threshold = 48;
 int i = 0;
 int average = 0;
 int a[5] = {};
@@ -20,6 +20,10 @@ void setup()
 void loop()
 {
   sensorVal = analogRead(A0);
+  // 0 is 48
+      // 1024 is 66
+      float value = 56.8888888888888888888888888888; //(1024 - 0)/(66-48) this is the sensitivity range
+      sensorVal = sensorVal / value + 48;
   
   if (i == 5) {
       i = 0; 
@@ -48,10 +52,6 @@ void loop()
       Serial.print("\"");
  
       Serial.print(", \"Sound Value\"");
-      // 0 is 48
-      // 1024 is 66
-      float value = 56.8888888888888888888888888888; //(1024 - 0)/(66-48) this is the sensitivity range
-      sensorVal = sensorVal / value + 48;
       Serial.print(sensorVal);
       Serial.println("}\'");
   }
