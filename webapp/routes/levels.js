@@ -1,6 +1,8 @@
 let express = require("express"),
     router = express.Router({mergeParams: true});
 
+// Be warned, much of the client side logic has been hard coded and messy
+
 router.get("/home/test", (req, res) => {
     res.render("levels/test", {level: 0});
 });
