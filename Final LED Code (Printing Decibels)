@@ -1,0 +1,56 @@
+#include <EEPROM.h>
+#include <ArduinoJson.h>
+
+float sensorVal;
+int outputVal;
+int ledred = 9;
+int ledgreen = 8;
+int threshold = 48;
+int i = 0;
+int average = 0;
+int a[5] = {};
+
+
+void setup()
+{
+  pinMode(ledred,OUTPUT);
+  pinMode(ledgreen,OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  sensorVal = analogRead(A0);
+  // 0 is 48
+      // 1024 is 66
+      float value = 56.8888888888888888888888888888; //(1024 - 0)/(66-48) this is the sensitivity range
+      sensorVal = sensorVal / value + 48;
+  
+  if (i == 5) {
+      i = 0; 
+
+      int average = (a[0] + a[1] + a[2] + a[3] + a[4])/5;
+      
+       
+      if (average > threshold) {
+          digitalWrite(ledgreen,LOW);
+          outputVal = map(sensorVal,0,1023,0,255);
+          analogWrite(ledred,outputVal);
+      } else {
+        digitalWrite(ledred, LOW);
+        digitalWrite(ledgreen,HIGH);
+      }  
+      DynamicJsonDocument doc(1024);
+      doc["id"] = "A";
+      doc["value"] = sensorVal;
+      
+      serializeJson(doc, Serial);
+      Serial.println();
+  }
+  
+  delay(500);
+
+  a[i] = sensorVal;
+  
+  i = i+1;
+}
