@@ -1,24 +1,42 @@
 let express = require("express"),
-    app = express(),                        // for severside rendering
-    bodyParser = require("body-parser"),    // for parsing data to and from html pages
-    methodOverride = require('method-override'),    // for enabling different http requests for CRUD
-    mongoose = require("mongoose");
-let Sensor = require("./models/sensor");
+    app = express(),
+    bodyParser = require("body-parser"),
+    methodOverride = require('method-override');
 
-    // todo: work on routes
+// Serial port connection with arduino setup
+var SerialPort = require('serialport');
+const Readline = require('@serialport/parser-readline');
+var port0 = new SerialPort("/dev/ttyACM0", {
+    baudRate: 9600,
+    parser: Readline
+});
+let latestSensorValue0 = 0;
+const parser0 = port0.pipe(new Readline({ delimiter: '\r\n' }));
+parser0.on('data', data => {
+    let str = data.toString(); //Convert to string
+    try {
+        const jsonData  = JSON.parse(str);
+        latestSensorValue0 = jsonData.value;
+    } catch {}
+});
+// Serial port connection with arduino setup
+// var port1 = new SerialPort("/dev/ttyACM1", {
+//     baudRate: 9600,
+//     parser: Readline
+// });
+let latestSensorValue1 = 0;
+// const parser1 = port1.pipe(new Readline({ delimiter: '\r\n' }));
+// parser1.on('data', data => {
+//     let str = data.toString(); //Convert to string
+//     try {
+//         const jsonData  = JSON.parse(str);
+//         latestSensorValue1 = jsonData.value;
+//         console.log(jsonData);
+//     } catch {}
+// });
+
 let indexRoutes = require("./routes/index"),
     levelsRoutes = require("./routes/levels");
-
-    // todo: connect mongodb to cloud
-    // right now, env is set to mongodb://localhost/honeywell
-mongoose.connect(String(process.env.HONEYWELL_MONGODB_URL), {
-    useNewUrlParser: true,
-    useCreateIndex: true
-}).then(() => {
-    console.log("Successfully connected to database!");
-}).catch(err => {
-    console.log("Error connecting to database.", err.message);
-});
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
@@ -30,11 +48,22 @@ app.locals.moment = require("moment");  // For getting date and time
 app.use(indexRoutes);
 app.use(levelsRoutes);
 
+app.get("/data0A", (req, res, next) => {
+    // console.log("Sensor0A: " + latestSensorValue0);
+    res.write(String(latestSensorValue0));
+    res.end();
+});
+app.get("/data0B", (req, res, next) => {
+    // console.log("Sensor0B: " + latestSensorValue1);
+    res.write(String(latestSensorValue1));
+    res.end();
+});
+
 // Catch all for non-existent page request
 app.get("*", (req, res) => {
     res.send("Invalid request!");
 });
 
-let listener = app.listen(process.env.PORT, process.env.IP, function() {
+let listener = app.listen(30001, "127.0.0.1", function() {
     console.log(`Honeywell has started! Listening on ${listener.address().address}:${listener.address().port}`);
 });

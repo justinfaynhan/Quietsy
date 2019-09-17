@@ -14,7 +14,7 @@
     color: white;
 }
 .btn-honeywell-green {
-    background-color: #84BD00;
+    background-color: #EE3124;
 }
 .honeywell-white {
     color: white;
@@ -38,3 +38,75 @@ body {
 #sub-text {
     font-size: 1.1em;
 }
+
+.mike {
+    border-radius: 50%;
+    width: 50px;
+    height: auto;
+}
+.icon-selected {
+    border-radius: 50%;
+    border: 4px dotted #00639D;
+}
+.icon-noisy {
+    border: 6px solid red;
+}
+.text-noisy {
+    color: red;
+}
+
+.image-parent {
+    position: relative;
+    display: flex;
+}
+.image-responsive {
+    width: 70%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+}
+.image-child {
+    position: absolute;
+}
+#sensor0Aicon:hover + .sensorText {
+    opacity: 1;
+}
+#sensor0Bicon:hover + .sensorText {
+    opacity: 1;
+}
+.sensorText:hover {
+    opacity: 1;
+}
+.sensorText {
+    position:absolute;
+    border:2px solid #00639D;
+    background-color: #bae2f2;
+    top:50%;
+    width: 140px;
+    text-align:left;
+    opacity:0;
+    transition: 0.5s;
+    letter-spacing: normal;
+    font-size: 0.8rem;
+}
+
+#nav-logo-img {
+    width: 110px;
+}
+#main-logo-title {
+    width: 100%;
+}
+
+.level-container {
+    margin-top: 25px;
+    margin-bottom: 30px;
+}
+.level-title {
+    text-align: center
+}
+
+.graphs {
+    display: none;
+}
+

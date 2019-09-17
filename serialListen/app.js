@@ -2,39 +2,22 @@
 var SerialPort = require('serialport');
 const Readline = require('@serialport/parser-readline');
 var mongoose = require("mongoose");
+var request = require('request');
 
-// Open the port
-var port = new SerialPort("/dev/ttyACM0", {
+
+// Serial port connection with arduino setup
+var SerialPort = require('serialport');
+const Readline = require('@serialport/parser-readline');
+var port0 = new SerialPort("/dev/ttyACM0", {    // Adjust ttyACM0 as appropriate (use terminal "dmesg" to check connection)
     baudRate: 9600,
     parser: Readline
 });
-
-// For mongo db
-var Sensor = require('./models/sensor.js');
-
-// Connecting to db
-mongoose.connect(String(process.env.HONEYWELL_MONGODB_URL), {
-    useNewUrlParser: true,
-    useCreateIndex: true
-}).then(() => {
-    console.log("Successfully connected to database!");
-}).catch(err => {
-    console.log("Error connecting to database.", err.message);
-});
-
-// Read the port data
-const parser = port.pipe(new Readline({ delimiter: '\r\n' }))
-parser.on('data', function(data) {
-    var dataObject = JSON.parse(data);
-    var newSensor = {
-        sensorID: data.sensorID,
-        soundData: data.soundData
-    }
-    Sensor.create(newSensor, function(err, newlyCreated) {
-        if (err || !newlyCreated) {
-            console.log("Error or null in creating new sensor entry");
-        } else {
-            console.log("Successfully created sensor entry");
-        }
-    });
+let latestSensorValue0 = 0;
+const parser0 = port0.pipe(new Readline({ delimiter: '\r\n' }));
+parser0.on('data', data => {
+    let str = data.toString(); //Convert to string
+    try {
+        const jsonData  = JSON.parse(str);
+        latestSensorValue0 = jsonData.value;
+    } catch {}
 });

@@ -1,8 +1,9 @@
 let express = require("express"),
-    router = express.Router({mergeParams: true}),
-    mongoose = require("mongoose");
+    router = express.Router({mergeParams: true});
 
-let Sensor = require("../models/sensor");
+router.get("/home/test", (req, res) => {
+    res.render("levels/test", {level: 0});
+});
 
 router.get("/home/level:whatLevel", (req, res) => {
     if (req.params.whatLevel < 2 || req.params.whatLevel > 8) {
