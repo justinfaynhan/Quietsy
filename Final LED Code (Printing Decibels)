@@ -1,4 +1,5 @@
 #include <EEPROM.h>
+#include <ArduinoJson.h>
 
 float sensorVal;
 int outputVal;
@@ -39,24 +40,15 @@ void loop()
         digitalWrite(ledred, LOW);
         digitalWrite(ledgreen,HIGH);
       }  
-
-      Serial.print("{");
-      Serial.print("\"id\":");
+      DynamicJsonDocument doc(1024);
+      doc["id"] = "A";
+      doc["value"] = sensorVal;
       
-      if (EEPROM[0] = 65) {
-          Serial.print("\"");
-          Serial.print('A');
-      }
-      
-      Serial.print(EEPROM[1]);
-      Serial.print("\"");
- 
-      Serial.print(", \"value\"");
-      Serial.print(sensorVal);
-      Serial.println("}");
+      serializeJson(doc, Serial);
+      Serial.println();
   }
   
-  delay(100);
+  delay(500);
 
   a[i] = sensorVal;
   
