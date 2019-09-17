@@ -40,8 +40,8 @@ void loop()
         digitalWrite(ledgreen,HIGH);
       }  
 
-      Serial.print("\'{");
-      Serial.print("\"Sensor ID\":");
+      Serial.print("{");
+      Serial.print("\"id\":");
       
       if (EEPROM[0] = 65) {
           Serial.print("\"");
@@ -51,12 +51,12 @@ void loop()
       Serial.print(EEPROM[1]);
       Serial.print("\"");
  
-      Serial.print(", \"Sound Value\"");
+      Serial.print(", \"value\"");
       Serial.print(sensorVal);
-      Serial.println("}\'");
+      Serial.println("}");
   }
   
-  delay(1000);
+  delay(100);
 
   a[i] = sensorVal;
   
