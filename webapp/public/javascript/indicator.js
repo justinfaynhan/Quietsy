@@ -10,7 +10,7 @@ mike.forEach((elem, index) => {
             contentType: "text/plain"
         }, function(data) {
             y = Number(data);
-            sensorTextVal[index].innerHTML = y;
+            sensorTextVal[index].innerHTML = y + "db";
             if (y >= 50) {
                 elem.classList.add("icon-noisy");
                 sensorTextVal[index].classList.add("text-noisy");

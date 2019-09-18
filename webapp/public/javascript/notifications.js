@@ -30,7 +30,6 @@ window.addEventListener('load', function () {
             }, function(data) {
                 if (Number(data) >= 50) {
                     var n = new Notification ("Noisy around sensor " + level + letters[index]);
-                    setTimeout(1000)
                 }
             });
         }, 4000); 

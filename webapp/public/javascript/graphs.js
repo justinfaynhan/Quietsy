@@ -167,9 +167,6 @@ document.getElementById("sensor0Aicon").onclick = function() {
     document.getElementById("sensor0Bicon").classList.remove("icon-selected");
 
 }
-   
-
-
 
 document.getElementById("sensor0Bicon").onclick = function() {
     document.getElementById("myChart0B").classList.toggle("graphs");
@@ -177,5 +174,3 @@ document.getElementById("sensor0Bicon").onclick = function() {
     document.getElementById("sensor0Bicon").classList.toggle("icon-selected");
     document.getElementById("sensor0Aicon").classList.remove("icon-selected");
 }
-   
-      
