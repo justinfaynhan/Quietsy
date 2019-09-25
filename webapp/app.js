@@ -20,20 +20,20 @@ parser0.on('data', data => {
     } catch {}
 });
 // Serial port connection with arduino setup
-// var port1 = new SerialPort("/dev/ttyACM1", {
-//     baudRate: 9600,
-//     parser: Readline
-// });
+var port1 = new SerialPort("/dev/ttyACM1", {
+    baudRate: 9600,
+    parser: Readline
+});
 let latestSensorValue1 = 0;
-// const parser1 = port1.pipe(new Readline({ delimiter: '\r\n' }));
-// parser1.on('data', data => {
-//     let str = data.toString(); //Convert to string
-//     try {
-//         const jsonData  = JSON.parse(str);
-//         latestSensorValue1 = jsonData.value;
-//         console.log(jsonData);
-//     } catch {}
-// });
+const parser1 = port1.pipe(new Readline({ delimiter: '\r\n' }));
+parser1.on('data', data => {
+    let str = data.toString(); //Convert to string
+    try {
+        const jsonData  = JSON.parse(str);
+        latestSensorValue1 = jsonData.value;
+        // console.log(jsonData);
+    } catch {}
+});
 
 let indexRoutes = require("./routes/index"),
     levelsRoutes = require("./routes/levels");
